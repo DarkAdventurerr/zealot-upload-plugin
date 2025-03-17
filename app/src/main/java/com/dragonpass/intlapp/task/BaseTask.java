@@ -17,8 +17,10 @@ import org.gradle.api.Project;
 
 import java.io.File;
 
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class BaseTask extends DefaultTask {
@@ -39,7 +41,11 @@ public class BaseTask extends DefaultTask {
         bodyBuilder.addFormDataPart("token", apiKey);
         bodyBuilder.addFormDataPart("channel_key", uploadChannelKey);
         bodyBuilder.addFormDataPart("changelog", buildUpdateDescription);
-        System.out.println("upload zealot ---");
+        bodyBuilder.addFormDataPart("file", apkFile.getName(), RequestBody.create(
+                MediaType.parse("application/octet-stream"), // 根据文件类型选择
+                apkFile
+        ));
+        System.out.println("upload zealot ---\nhost:%s\nfile:" + apkFile.getAbsolutePath());
         Request request = getRequestBuilder()
                 .url(String.format("%s/api/apps/upload", zealotHost))
                 .post(bodyBuilder.build())
@@ -48,7 +54,7 @@ public class BaseTask extends DefaultTask {
             Response response = HttpHelper.getOkHttpClient().newCall(request).execute();
             if (response.isSuccessful() && response.body() != null) {
                 String result = response.body().string();
-                System.out.println("upload zealot --- getCOSToken result: " + result);
+                System.out.println("upload zealot --- result: " + result);
                 if (!PluginUtils.isEmpty(result)) {
                     ZealotUploadResultEntity zealotUploadResultEntity = new Gson().fromJson(result, ZealotUploadResultEntity.class);
                     if (zealotUploadResultEntity == null) {
@@ -68,7 +74,7 @@ public class BaseTask extends DefaultTask {
                     SendMsgHelper.sendMsgToWeiXinGroup(mVariant, mTargetProject, zealotUploadResultEntity, gitLog, buildPassword, buildUpdateDescription);
                 }
             } else {
-                System.out.println("upload zealot ---- request getCOSToken call failed");
+                System.out.println("upload zealot ---- upload error:" + response.message());
             }
             System.out.println("******************* upload zealot: finish *******************");
         } catch (Exception e) {
