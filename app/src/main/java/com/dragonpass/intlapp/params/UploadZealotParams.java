@@ -98,7 +98,7 @@ public class UploadZealotParams {
 
     public void printInfo() {
         StringBuilder sb = new StringBuilder();
-        sb.append("> 上传信息:");
+        sb.append("> zealot上传信息:");
         if (!PluginUtils.isEmpty(appName)) {
             sb.append('\n').append("> appName:").append(appName);
         }
