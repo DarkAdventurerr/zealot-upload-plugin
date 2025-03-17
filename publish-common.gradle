@@ -5,7 +5,7 @@ afterEvaluate { project ->
         publications {
             release(MavenPublication) {
                 groupId 'com.dragonpass.intlapp' //默认是模块的group，需要跟build时保持一致
-                artifactId "zealot-publish-plugin" //默认是模块的artifactId，需要跟build时保持一致
+                artifactId "zealot-upload-plugin" //默认是模块的artifactId，需要跟build时保持一致
                 version "1.0.0-alpha01" //默认是模块的版本，需要跟build时保持一致
                 // 这里除了有debug 还有release
 //                from components.release
