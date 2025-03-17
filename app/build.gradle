@@ -9,7 +9,7 @@ apply plugin: 'java-library'
 //apply plugin: 'maven'
 
 //先上传到github，再https://jitpack.io/
-//apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'maven-publish'
 
 
 apply from: "../config.gradle"
