@@ -13,6 +13,7 @@ apply plugin: 'maven-publish'
 
 
 apply from: "../config.gradle"
+apply from: "../publish-common.gradle"
 
 dependencies {
     // gradle sdk
