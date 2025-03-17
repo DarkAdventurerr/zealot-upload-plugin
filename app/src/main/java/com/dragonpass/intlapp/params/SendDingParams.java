@@ -1,4 +1,4 @@
-package com.darkadventurer.uploadplugin.params;
+package com.dragonpass.intlapp.params;
 
 import org.gradle.api.Project;
 

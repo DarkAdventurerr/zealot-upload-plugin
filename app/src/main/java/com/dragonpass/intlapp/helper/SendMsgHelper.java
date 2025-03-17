@@ -1,17 +1,17 @@
-package com.darkadventurer.uploadplugin.helper;
+package com.dragonpass.intlapp.helper;
 
 import com.android.build.gradle.api.BaseVariant;
 
-import com.darkadventurer.uploadplugin.PluginUtils;
-import com.darkadventurer.uploadplugin.model.DingDingRequestBean;
-import com.darkadventurer.uploadplugin.model.WXGroupRequestBean;
-import com.darkadventurer.uploadplugin.model.ZealotUploadResultEntity;
-import com.darkadventurer.uploadplugin.model.feishu.ElementsDTO;
-import com.darkadventurer.uploadplugin.model.feishu.FeiShuRequestBean;
-import com.darkadventurer.uploadplugin.model.feishu.TextDTO;
-import com.darkadventurer.uploadplugin.params.SendDingParams;
-import com.darkadventurer.uploadplugin.params.SendFeishuParams;
-import com.darkadventurer.uploadplugin.params.SendWeixinGroupParams;
+import com.dragonpass.intlapp.PluginUtils;
+import com.dragonpass.intlapp.model.DingDingRequestBean;
+import com.dragonpass.intlapp.model.WXGroupRequestBean;
+import com.dragonpass.intlapp.model.ZealotUploadResultEntity;
+import com.dragonpass.intlapp.model.feishu.ElementsDTO;
+import com.dragonpass.intlapp.model.feishu.FeiShuRequestBean;
+import com.dragonpass.intlapp.model.feishu.TextDTO;
+import com.dragonpass.intlapp.params.SendDingParams;
+import com.dragonpass.intlapp.params.SendFeishuParams;
+import com.dragonpass.intlapp.params.SendWeixinGroupParams;
 
 import org.gradle.api.Project;
 

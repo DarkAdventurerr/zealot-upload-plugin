@@ -1,4 +1,4 @@
-package com.darkadventurer.uploadplugin;
+package com.dragonpass.intlapp;
 
 /**
  * Description :

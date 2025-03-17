@@ -1,9 +1,9 @@
-package com.darkadventurer.uploadplugin.task;
+package com.dragonpass.intlapp.task;
 
 
 import com.android.build.gradle.api.BaseVariantOutput;
 
-import com.darkadventurer.uploadplugin.params.UploadZealotParams;
+import com.dragonpass.intlapp.params.UploadZealotParams;
 
 import org.gradle.api.GradleException;
 import org.gradle.api.tasks.TaskAction;

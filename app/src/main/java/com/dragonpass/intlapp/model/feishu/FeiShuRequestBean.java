@@ -1,4 +1,4 @@
-package com.darkadventurer.uploadplugin.model.feishu;
+package com.dragonpass.intlapp.model.feishu;
 
 import com.google.gson.annotations.SerializedName;
 

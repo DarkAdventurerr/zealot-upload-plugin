@@ -1,27 +1,24 @@
-package com.darkadventurer.uploadplugin.task;
+package com.dragonpass.intlapp.task;
 
 
 import com.android.build.gradle.api.BaseVariant;
-import com.darkadventurer.uploadplugin.model.ZealotUploadResultEntity;
+import com.dragonpass.intlapp.model.ZealotUploadResultEntity;
 import com.google.gson.Gson;
 
-import com.darkadventurer.uploadplugin.PluginConstants;
-import com.darkadventurer.uploadplugin.PluginUtils;
-import com.darkadventurer.uploadplugin.helper.CmdHelper;
-import com.darkadventurer.uploadplugin.helper.FileIOUtils;
-import com.darkadventurer.uploadplugin.helper.HttpHelper;
-import com.darkadventurer.uploadplugin.helper.SendMsgHelper;
+import com.dragonpass.intlapp.PluginConstants;
+import com.dragonpass.intlapp.PluginUtils;
+import com.dragonpass.intlapp.helper.CmdHelper;
+import com.dragonpass.intlapp.helper.FileIOUtils;
+import com.dragonpass.intlapp.helper.HttpHelper;
+import com.dragonpass.intlapp.helper.SendMsgHelper;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class BaseTask extends DefaultTask {

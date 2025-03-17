@@ -1,4 +1,4 @@
-package com.darkadventurer.uploadplugin.helper;
+package com.dragonpass.intlapp.helper;
 
 import java.util.concurrent.TimeUnit;
 

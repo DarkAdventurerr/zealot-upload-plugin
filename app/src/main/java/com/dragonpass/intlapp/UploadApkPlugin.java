@@ -1,17 +1,17 @@
-package com.darkadventurer.uploadplugin;
+package com.dragonpass.intlapp;
 
 import com.android.build.gradle.AppExtension;
 import com.android.build.gradle.api.ApplicationVariant;
 import com.android.build.gradle.internal.dsl.BuildType;
 import com.android.builder.model.ClassField;
 
-import com.darkadventurer.uploadplugin.params.GitLogParams;
-import com.darkadventurer.uploadplugin.params.SendDingParams;
-import com.darkadventurer.uploadplugin.params.SendFeishuParams;
-import com.darkadventurer.uploadplugin.params.SendWeixinGroupParams;
-import com.darkadventurer.uploadplugin.params.UploadZealotParams;
-import com.darkadventurer.uploadplugin.task.BuildAndUploadTask;
-import com.darkadventurer.uploadplugin.task.OnlyUploadTask;
+import com.dragonpass.intlapp.params.GitLogParams;
+import com.dragonpass.intlapp.params.SendDingParams;
+import com.dragonpass.intlapp.params.SendFeishuParams;
+import com.dragonpass.intlapp.params.SendWeixinGroupParams;
+import com.dragonpass.intlapp.params.UploadZealotParams;
+import com.dragonpass.intlapp.task.BuildAndUploadTask;
+import com.dragonpass.intlapp.task.OnlyUploadTask;
 
 import org.gradle.api.DomainObjectSet;
 import org.gradle.api.Plugin;

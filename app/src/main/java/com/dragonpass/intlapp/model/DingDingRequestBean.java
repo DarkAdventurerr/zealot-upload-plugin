@@ -1,4 +1,4 @@
-package com.darkadventurer.uploadplugin.model;
+package com.dragonpass.intlapp.model;
 
 import com.google.gson.annotations.SerializedName;
 

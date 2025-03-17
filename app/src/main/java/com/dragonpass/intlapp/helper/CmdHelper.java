@@ -1,6 +1,6 @@
-package com.darkadventurer.uploadplugin.helper;
+package com.dragonpass.intlapp.helper;
 
-import com.darkadventurer.uploadplugin.params.GitLogParams;
+import com.dragonpass.intlapp.params.GitLogParams;
 
 import org.gradle.api.Project;
 
