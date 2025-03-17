@@ -358,7 +358,7 @@ public class SendMsgHelper {
         if ("text".equals(weixinGroupParams.msgtype)) {
             wxGroupRequestBean.setMsgtype("text");
             WXGroupRequestBean.TextDTO textDTO = new WXGroupRequestBean.TextDTO();
-            markStr.append("【DPTools】软件更新提醒").append('\n').append("您的应用上传了新版本").append('\n')
+            markStr.append("软件更新提醒 - DPTools").append('\n').append("您的应用上传了新版本").append('\n')
                     .append("应用名称：").append(dataDTO.getApp().getName()).append('\n')
                     .append("版本信息：").append(dataDTO.getRelease_version()).append(" (Build ").append(dataDTO.getBuild_version()).append(")").append('\n')
                     .append("应用大小：").append(apkSize).append('\n')
