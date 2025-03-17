@@ -36,6 +36,12 @@ public class BaseTask extends DefaultTask {
     }
 
     public void uploadZealot(String apiKey, String appName, String zealotHost, int installType, String buildPassword, String uploadChannelKey, String buildUpdateDescription, String buildUpdateDescriptionFile, int buildInstallDate, String buildChannelShortcut, File apkFile) {
+        if (buildPassword == null) {
+            buildPassword = "";
+        }
+        if (buildUpdateDescription == null) {
+            buildUpdateDescription = "";
+        }
         //builder
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         bodyBuilder.addFormDataPart("token", apiKey);
