@@ -12,7 +12,6 @@ apply plugin: 'java-library'
 apply plugin: 'com.github.dcendents.android-maven'
 
 apply from: "../config.gradle"
-//apply from: "../publish-common.gradle"
 
 dependencies {
     // gradle sdk
