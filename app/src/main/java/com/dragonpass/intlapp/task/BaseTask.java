@@ -52,7 +52,7 @@ public class BaseTask extends DefaultTask {
                 MediaType.parse("application/octet-stream"), // 根据文件类型选择
                 apkFile
         ));
-        System.out.println("upload zealot ---\nhost:%s" + zealotHost + "\nfile:" + apkFile.getAbsolutePath());
+        System.out.println("upload zealot ---\nhost:" + zealotHost + "\nfile:" + apkFile.getAbsolutePath());
         Request request = getRequestBuilder()
                 .url(String.format("%s/api/apps/upload", zealotHost))
                 .post(bodyBuilder.build())
