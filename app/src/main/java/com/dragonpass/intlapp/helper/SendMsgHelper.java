@@ -37,28 +37,28 @@ public class SendMsgHelper {
     private static final String defaultLogTitle = "更新内容：\n ";
 
 
-    public static String parseDateTime(String inputTime){
-       try {
-           // 输入的时间字符串
+    public static String parseDateTime(String inputTime) {
+        try {
+            // 输入的时间字符串
 
-           // 定义输入格式
-           SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-           inputFormat.setTimeZone(TimeZone.getDefault()); // 设置时区（如果需要）
+            // 定义输入格式
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            inputFormat.setTimeZone(TimeZone.getDefault()); // 设置时区（如果需要）
 
-           // 解析时间字符串为 Date 对象
-           Date date = inputFormat.parse(inputTime);
+            // 解析时间字符串为 Date 对象
+            Date date = inputFormat.parse(inputTime);
 
-           // 定义输出格式
-           SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-           outputFormat.setTimeZone(TimeZone.getDefault()); // 设置目标时区
+            // 定义输出格式
+            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            outputFormat.setTimeZone(TimeZone.getDefault()); // 设置目标时区
 
-           // 格式化输出
-           // 输出：2025-03-17 10:58:54
-           return outputFormat.format(date);
-       }catch (Exception e){
-           e.printStackTrace();
-       }
-       return inputTime;
+            // 格式化输出
+            // 输出：2025-03-17 10:58:54
+            return outputFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inputTime;
     }
 
     /**
@@ -366,8 +366,10 @@ public class SendMsgHelper {
                     .append("更新内容：").append(contentText).append('\n')
                     .append("扫码下载：").append(dataDTO.getQrcode_url()).append('\n')
                     .append("点击查看应用：").append(dataDTO.getRelease_url()).append('\n')
-                    .append("安装密码：").append(buildPassword).append('\n')
             ;
+            if (!PluginUtils.isEmpty(buildPassword)) {
+                markStr.append("安装密码：").append(buildPassword).append('\n');
+            }
 //            markStr.append(dataDTO.getBuildName()).append(" V").append(dataDTO.getBuildVersion());
 //            markStr.append(flavorStr).append(contentTitle).append("\n").append("下载链接：https://www.pgyer.com/")
 //                    .append(dataDTO.getBuildShortcutUrl()).append("\n").append(contentText);
