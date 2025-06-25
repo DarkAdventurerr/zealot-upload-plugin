@@ -23,9 +23,9 @@ publishing {
     publications {
         create<MavenPublication>("release") {
             from(components["java"])
-            groupId = "net.center.upload.plugin"
-            artifactId = "pgy-plugin"
-            version = "1.0.0"
+            groupId = "com.dragonpass.intlapp"
+            artifactId = "zealot-upload-plugin"
+            version = "1.0.0-alpha01"
         }
     }
     repositories {

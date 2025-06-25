@@ -2,6 +2,7 @@ package com.dragonpass.intlapp
 
 import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.variant.AndroidComponentsExtension
+import com.android.build.api.variant.ApplicationVariant
 import com.dragonpass.intlapp.params.GitLogParams
 import com.dragonpass.intlapp.params.SendDingParams
 import com.dragonpass.intlapp.params.SendFeishuParams
@@ -30,10 +31,8 @@ class UploadApkPlugin : Plugin<Project> {
         androidComponents?.onVariants { variant ->
             // **** 关键改动在这里：类型改为 Provider<Directory> ****
             val apkFolderProvider: Provider<Directory> = variant.artifacts.get(SingleArtifact.APK)
-
             val variantName =
                 variant.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
-
             val taskProvider = project.tasks.register(
                 PluginConstants.TASK_EXTENSION_NAME + variantName,
                 BuildAndUploadTask::class.java
