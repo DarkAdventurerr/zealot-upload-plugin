@@ -14,9 +14,12 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
 import java.io.File
 
 open class BaseTask : DefaultTask() {
+    @get:Internal
     var targetProject: Project? = null
 
     fun init(project: Project?) {

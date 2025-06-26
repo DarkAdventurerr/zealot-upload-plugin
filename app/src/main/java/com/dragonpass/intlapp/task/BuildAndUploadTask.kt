@@ -23,7 +23,7 @@ abstract class BuildAndUploadTask : BaseTask() {
     val variantName: Property<String> = objects.property(String::class.java)
 
     @TaskAction
-    fun uploadToPGY() {
+    fun uploadToZealot() {
         val apk = apkFile.get().asFile
         if (!apk.exists()) {
             throw GradleException("The compiled APK file to upload does not exist!")

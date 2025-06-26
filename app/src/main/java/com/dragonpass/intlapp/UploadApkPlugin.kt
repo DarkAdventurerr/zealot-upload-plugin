@@ -2,7 +2,10 @@ package com.dragonpass.intlapp
 
 import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.variant.AndroidComponentsExtension
-import com.android.build.api.variant.ApplicationVariant
+import com.android.build.gradle.AppExtension
+import com.android.build.gradle.api.ApplicationVariant
+import com.android.builder.model.ClassField
+import com.dragonpass.intlapp.PluginUtils.isEmpty
 import com.dragonpass.intlapp.params.GitLogParams
 import com.dragonpass.intlapp.params.SendDingParams
 import com.dragonpass.intlapp.params.SendFeishuParams
@@ -10,11 +13,14 @@ import com.dragonpass.intlapp.params.SendWeixinGroupParams
 import com.dragonpass.intlapp.params.UploadZealotParams
 import com.dragonpass.intlapp.task.BuildAndUploadTask
 import com.dragonpass.intlapp.task.OnlyUploadTask
+import org.gradle.api.DomainObjectSet
+import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.file.Directory
 import org.gradle.api.provider.Provider
-import org.gradle.api.file.Directory // <-- 导入 Directory 类型
-import org.gradle.api.GradleException // <-- 导入 GradleException
+import java.util.Locale
+
 
 class UploadApkPlugin : Plugin<Project> {
     override fun apply(project: Project) {
@@ -24,7 +30,8 @@ class UploadApkPlugin : Plugin<Project> {
         )
         createParams(project)
         dependsOnOnlyUploadTask(uploadParams, project)
-
+        UploadZealotParams.getConfig(project)
+        SendWeixinGroupParams.getWeixinGroupConfig(project)
         val androidComponents =
             project.extensions.findByType(AndroidComponentsExtension::class.java)
 
@@ -33,7 +40,7 @@ class UploadApkPlugin : Plugin<Project> {
             val apkFolderProvider: Provider<Directory> = variant.artifacts.get(SingleArtifact.APK)
             val variantName =
                 variant.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
-            val taskProvider = project.tasks.register(
+            project.tasks.register(
                 PluginConstants.TASK_EXTENSION_NAME + variantName,
                 BuildAndUploadTask::class.java
             ) { task ->
@@ -61,11 +68,78 @@ class UploadApkPlugin : Plugin<Project> {
                 task.variantName.set(variantName)
                 task.targetProject = project
             }
-            project.tasks.named("assemble${variantName}").configure {
-                it.finalizedBy(taskProvider)
+        }
+        project.afterEvaluate { project1 ->
+            val appExtension :AppExtension?= project1.extensions.findByName(PluginConstants.ANDROID_EXTENSION_NAME) as AppExtension?
+            appExtension?.let {
+                printBuildConfigFields(project1,uploadParams.buildTypeName, appExtension)
+                val appVariants: DomainObjectSet<ApplicationVariant> = appExtension.applicationVariants
+                appVariants.forEach {
+                    if (it.buildType != null) {
+                        dependsOnTask(it, uploadParams, project1, appExtension)
+                    }
+                }
             }
         }
     }
+
+    private fun dependsOnTask(
+        applicationVariant: ApplicationVariant,
+        uploadParams: UploadZealotParams,
+        project1: Project,
+        appExtension: AppExtension
+    ) {
+        val variantName: String = getVariantName(applicationVariant, uploadParams)
+        //创建我们，上传的task任务
+        val uploadTask = (project1.tasks.findByName(PluginConstants.TASK_EXTENSION_NAME + variantName) as BuildAndUploadTask?)?:project1.tasks
+            .create(
+                PluginConstants.TASK_EXTENSION_NAME + variantName,
+                BuildAndUploadTask::class.java
+            )
+        uploadTask.init(project1)
+
+        //依赖关系 。上传依赖打包，打包依赖clean。
+//        applicationVariant.getAssembleProvider().get().dependsOn(project1.getTasks().findByName("clean"));
+        uploadTask.dependsOn(applicationVariant.assembleProvider.get()).doLast {
+            printBuildConfigFields(
+                project1,
+                variantName,
+                appExtension
+            )
+        }
+    }
+
+    private fun printBuildConfigFields(project1: Project,variantName: String, appExtension: AppExtension) {
+        val byName: com.android.build.gradle.internal.dsl.BuildType? =
+            appExtension.buildTypes.findByName(variantName.lowercase(Locale.getDefault()))
+        if (byName != null) {
+            val buildConfigFields: Map<String, ClassField> = byName.buildConfigFields
+            buildConfigFields.forEach { (t, u) ->
+                project1.logger.warn(
+                    String.format(
+                        "> [%s]:%s", t.lowercase(
+                            Locale.getDefault()
+                        ), u.value
+                    )
+                )
+            }
+        }
+    }
+
+    private fun getVariantName(
+        applicationVariant: ApplicationVariant,
+        uploadParams: UploadZealotParams
+    ): String {
+        var variantName: String? =
+            applicationVariant.name.substring(0, 1)
+                .uppercase(Locale.getDefault()) + applicationVariant.name.substring(1)
+        if (isEmpty(variantName)) {
+            variantName =
+                if (isEmpty(uploadParams.buildTypeName)) "Release" else uploadParams.buildTypeName
+        }
+        return variantName.orEmpty()
+    }
+
 
     private fun createParams(project: Project) {
         project.extensions.create(PluginConstants.GIT_LOG_PARAMS_NAME, GitLogParams::class.java)
